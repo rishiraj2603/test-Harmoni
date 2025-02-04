@@ -2,7 +2,6 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ProductCard from "../Product/ProductCard";
 import { useDispatch } from "react-redux";
 import { updateCategory } from "../../store/store";
 const SearchBar = () => {
@@ -30,16 +29,10 @@ const SearchBar = () => {
           handleClick(e.target.firstChild.value);
         }}
       >
-        <input
-          list="category"
-          name=""
-          id=""
-          className="border-black border-2 "
-          placeholder="Search here"
-        />
+        <input list="category" name="" id="" className="border-black border-2 " placeholder="Search here" />
         <datalist id="category">
           {category.map((item) => {
-            return <option>{item}</option>;
+            return <option key={item}>{item}</option>;
           })}
         </datalist>
         <button className="border-black border-2 w-[2.5rem] bg-blue-500 hover:bg-blue-600 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 active:bg-blue-700 text-white">
