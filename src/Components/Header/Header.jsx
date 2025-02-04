@@ -1,21 +1,43 @@
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import SearchBar from "./SearchBar";
 import { useSelector } from "react-redux";
+import SearchBar from "./SearchBar";
 const Header = () => {
-  const cartItem = useSelector((state) => state.cart.item);
+  const cartCount = useSelector((state) => state.cart.count);
   return (
-    <div className="border-black border-2 h-[5rem] w-full flex justify-between items-center">
-      <div className="storeName m-[1rem] text-2xl font-serif">My Store</div>
-      <div>
-        <SearchBar></SearchBar>
+    <header className="bg-white shadow-sm sticky top-0 z-30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <h1 className="text-xl font-bold">Harmoni</h1>
+            <nav className="hidden md:flex ml-10 space-x-8">
+              <a href="#" className="text-gray-700 hover:text-gray-900">
+                Home Page
+              </a>
+              <a href="#" className="text-gray-700 hover:text-gray-900">
+                Categories
+              </a>
+              <a href="#" className="text-gray-700 hover:text-gray-900">
+                Contact Us
+              </a>
+              <a href="#" className="text-gray-700 hover:text-gray-900">
+                More Options
+              </a>
+            </nav>
+          </div>
+          <div className="flex items-center">
+            <div className="relative mr-4">
+              <SearchBar />
+            </div>
+            <button className="relative">
+              <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">{cartCount}</span>
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="icon border-black border-2 w-max mx-[2rem] flex">
-        <h4 className="">{cartItem}</h4>
-        <FontAwesomeIcon icon={faCartShopping} className="text-4xl" />
-      </div>
-    </div>
+    </header>
   );
 };
 

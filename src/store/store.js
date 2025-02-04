@@ -1,10 +1,14 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 const CartSlice = createSlice({
   name: "cart",
-  initialState: { product: [], item: 0 },
+  initialState: { products: {}, count: 0 },
   reducers: {
     updateCart: (state, action) => {
-      state.item += 1;
+      const { change, id } = action.payload;
+      state.products[id] = Math.max(0, (state.products[id] || 0) + change);
+      let total = 0;
+      Object.values(state.products).forEach((value) => (total += value));
+      state.count = total;
     },
   },
 });
