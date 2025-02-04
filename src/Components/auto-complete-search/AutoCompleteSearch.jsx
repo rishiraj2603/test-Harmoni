@@ -9,6 +9,14 @@ export function AutocompleteSearch({ options, onChange }) {
     onChange(selectedValue);
   }, [selectedValue]);
 
+  const handleKeyDown = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    if (e.key === "Enter") {
+      setSelectedValue(value);
+      setShowOptions(false);
+    }
+  };
   const filteredOptions = options.filter((option) => option.toLowerCase().includes(inputValue.toLowerCase()));
 
   return (
@@ -20,6 +28,7 @@ export function AutocompleteSearch({ options, onChange }) {
           setInputValue(e.target.value);
           setShowOptions(true);
         }}
+        onKeyDown={handleKeyDown}
         onBlur={() => setTimeout(() => setShowOptions(false), 200)}
         placeholder="Search..."
         className="w-full px-4 py-2 border rounded-md"

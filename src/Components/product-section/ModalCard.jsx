@@ -37,7 +37,7 @@ const ModalCard = ({ open, onCloseModal, id }) => {
 
             <p className="text-gray-600 mb-4 line-clamp-3 capitalize">{description}</p>
 
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2 flex-col md:flex-row">
               <AddToCartButton id={id} />
               <button className=" bg-black text-white py-2 rounded hover:bg-gray-800 transition-colors w-full">Buy Now</button>
             </div>

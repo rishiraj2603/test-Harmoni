@@ -14,17 +14,20 @@ const Products = () => {
     setLoading(true);
     setError(null);
     try {
-      const allProductsRes = await axios.get("https://fakestoreapi.com/products");
-      const allProducts = allProductsRes.data;
-
       let categoryProducts = [];
+      let allProducts = [];
       if (categoryName) {
         const categoryRes = await axios.get(`https://fakestoreapi.com/products/category/${categoryName}`);
         categoryProducts = categoryRes.data;
-      }
-
-      if (categoryProducts.length == 0) {
-        setError("Failed to load products.");
+        if (categoryProducts.length == 0) {
+          setError("Failed to load products.");
+        }
+      } else {
+        const allProductsRes = await axios.get("https://fakestoreapi.com/products");
+        allProducts = allProductsRes.data;
+        if (allProducts.length == 0) {
+          setError("Failed to load products.");
+        }
       }
 
       setProductData({ allProducts, categoryProducts, isCategory: categoryProducts.length > 0 });
