@@ -4,37 +4,28 @@ import { useSelector } from "react-redux";
 import { ProductCard } from "./ProductCard";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [iscategory, setIsCategory] = useState(false);
-  const [categoryData, setCategoryData] = useState([]);
-
-  async function getProduct() {
-    const res = await axios.get("https://fakestoreapi.com/products");
-    const data = res.data;
-    setProducts(data);
-  }
-  useEffect(() => {
-    getProduct();
-  }, []);
+  const [productData, setProductData] = useState({ allProducts: [], categoryProducts: [], isCategory: false });
 
   const categoryName = useSelector((state) => state.category.selectedCategory);
-  async function getCategoryProduct(name) {
-    const res = await axios.get(`https://fakestoreapi.com/products/category/${name}`);
-    const data = res.data;
-    console.log("🚀 ~ getCategoryProduct ~ data:", data.length);
-    if (data == "") {
-      setIsCategory(false);
+
+  async function fetchProducts() {
+    const allProductsRes = await axios.get("https://fakestoreapi.com/products");
+    const allProducts = allProductsRes.data;
+
+    if (categoryName) {
+      const categoryRes = await axios.get(`https://fakestoreapi.com/products/category/${categoryName}`);
+      const categoryProducts = categoryRes.data;
+      setProductData({ allProducts, categoryProducts, isCategory: categoryProducts.length > 0 });
+    } else {
+      setProductData({ allProducts, categoryProducts: [], isCategory: false });
     }
-    if (data.length > 0) {
-      setIsCategory(true);
-    }
-    setCategoryData(data);
   }
+
   useEffect(() => {
-    getCategoryProduct(categoryName);
+    fetchProducts();
   }, [categoryName]);
 
-  const data = iscategory ? categoryData : products;
+  const data = productData.isCategory ? productData.categoryProducts : productData.allProducts;
   return data.map((item) => {
     return <ProductCard key={item.id} product={item} />;
   });
