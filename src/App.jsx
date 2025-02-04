@@ -3,8 +3,8 @@ import { DiscoverSection } from "./components/discover-section";
 import Footer from "./components/footer/Footer";
 import Header from "./Components/Header/Header";
 import { HeroSection } from "./components/hero-section";
-import { ProductSection } from "./components/product-section/ProductSection";
 import { ServiceSection } from "./components/service-section";
+import { ProductSection } from "./components/product-section";
 
 const App = () => {
   return (
