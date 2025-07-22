@@ -35,10 +35,17 @@ export const ProductCard = ({ product }) => {
           <StarRating rating={rating?.rate} count={rating?.count} />
         </div>
         <div className="mt-auto">
-          <AddToCartButton id={id} />
+          <AddToCartButton product={product} />
         </div>
       </div>
-      {open && <ModalCard id={id} product={product} open={open} onCloseModal={onCloseModal}></ModalCard>}
+      {open && (
+        <ModalCard
+          id={id}
+          product={product}
+          open={open}
+          onCloseModal={onCloseModal}
+        ></ModalCard>
+      )}
     </div>
   );
 };

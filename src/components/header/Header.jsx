@@ -3,6 +3,9 @@ import { useSelector } from "react-redux";
 import SearchBar from "./SearchBar";
 const Header = () => {
   const cartCount = useSelector((state) => state.cart.count);
+  const pro = useSelector((state) => state.cart.products);
+  console.log("🚀 ~ Header ~ pro:", pro);
+
   return (
     <header className="bg-yellow-400 shadow-sm sticky top-0 z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
