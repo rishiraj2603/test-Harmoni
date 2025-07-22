@@ -6,21 +6,19 @@ const CartSlice = createSlice({
     updateCart: (state, action) => {
       const { change, id, title, image, price } = action.payload;
       let productToChange = state.products.find((item) => item.id === id);
-      console.log("🚀 ~ productToChange:", productToChange);
 
       if (productToChange) {
         productToChange.quantity = Math.max(
           0,
           productToChange.quantity + change
         );
-        let total = 0;
-        // productToChange.forEach((value) => (total += value.quantity));
-        // state.count = total;
-        console.log("if");
       } else {
-        console.log("else", state.products[id]);
         state.products.push({ id, title, image, price, quantity: 1 });
       }
+      state.count = state.products.reduce(
+        (total, product) => total + product.quantity,
+        0
+      );
     },
   },
 });

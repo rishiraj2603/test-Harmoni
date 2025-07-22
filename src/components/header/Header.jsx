@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SearchBar from "./SearchBar";
+import CartModal from "./CartModal";
 const Header = () => {
   const cartCount = useSelector((state) => state.cart.count);
-  const pro = useSelector((state) => state.cart.products);
-  console.log("🚀 ~ Header ~ pro:", pro);
+
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen(false);
+  };
 
   return (
     <header className="bg-yellow-400 shadow-sm sticky top-0 z-30">
@@ -16,13 +23,19 @@ const Header = () => {
               <a href="#" className="text-gray-700 hover:text-gray-900">
                 Home Page
               </a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">
+              <a
+                href="#productSection"
+                className="text-gray-700 hover:text-gray-900"
+              >
                 Categories
               </a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">
+              <a href="#footer" className="text-gray-700 hover:text-gray-900">
                 Contact Us
               </a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">
+              <a
+                href="#heroSection"
+                className="text-gray-700 hover:text-gray-900"
+              >
                 More Options
               </a>
             </nav>
@@ -31,7 +44,14 @@ const Header = () => {
             <div className="relative mr-4">
               <SearchBar />
             </div>
-            <button className="relative">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onOpenModal();
+              }}
+              className="relative"
+            >
               <svg
                 className="w-6 h-6 text-gray-700"
                 fill="none"
@@ -48,6 +68,9 @@ const Header = () => {
               <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                 {cartCount}
               </span>
+              {open && (
+                <CartModal open={open} onCloseModal={onCloseModal}></CartModal>
+              )}
             </button>
           </div>
         </div>

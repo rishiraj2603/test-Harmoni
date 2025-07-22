@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "../../store/store";
 
 const AddToCartButton = ({ product }) => {
+  // Guard: if product is undefined, don't render anything
+  if (!product) return null;
   const { id, title, image, price } = product;
   const cartProduct = useSelector((state) =>
     state.cart.products.find((item) => item.id === id)

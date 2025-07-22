@@ -35,7 +35,7 @@ export const ProductCard = ({ product }) => {
           <StarRating rating={rating?.rate} count={rating?.count} />
         </div>
         <div className="mt-auto">
-          <AddToCartButton product={product} />
+          <AddToCartButton product={product} id={id} />
         </div>
       </div>
       {open && (
