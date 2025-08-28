@@ -25,10 +25,8 @@ const Products = () => {
           `https://fakestoreapi.com/products/category/${categoryName}`
         );
         categoryProducts = categoryRes.data;
-        console.log("🚀 ~ fetchProducts ~ categoryProducts:", categoryProducts);
         let correctingImageLink = categoryProducts.map((item) => {
           let correctImage = item.image.replace(/.jpg$/, "t.png");
-          console.log("🚀 ~ fetchProducts ~ correctImage:", correctImage);
           return { ...item, image: correctImage };
         });
         categoryProducts = correctingImageLink;
